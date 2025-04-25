@@ -5,7 +5,7 @@ using namespace std;
 
 //heap sort:
 
-void heapify(int* a, int n, int i)
+void heapify(vector<int> &a, int n, int i)
 {
 	int child = 2 * i + 1;
 	if (child >= n) { return; }
@@ -15,7 +15,7 @@ void heapify(int* a, int n, int i)
 	heapify(a, n, child);
 }
 
-void buildheap(int* a, int n)
+void buildheap(vector<int> &a, int n)
 {
 	int lastparent = n / 2 - 1;
 	for (int i = lastparent; i >= 0; i--)
@@ -24,7 +24,7 @@ void buildheap(int* a, int n)
 	}
 }
 
-void heapsort(int* a, int n)
+void heapsort(vector<int> &a, int n)
 {
 	buildheap(a, n);
 	for (int i = n - 1; i > 0; i--)
@@ -38,17 +38,17 @@ void heapsort(int* a, int n)
 
 //countingsort:
 
-void countingsort(vector<int> a, int leftbound, int rightbound)
+void countingsort(vector<int> &a, int leftbound, int rightbound)
 {
 	int soluong = rightbound - leftbound + 1;
-	int* output = new int[soluong];
+	vector<int> output(soluong);
 	int maxx = a[leftbound];
 	for (int i = leftbound + 1; i <= rightbound; i++)
 	{
 		if (a[i] > maxx) { maxx = a[i]; }
 	}
 	cout << maxx << " ";
-	int* b = new int[maxx + 1];
+	vector<int> b(maxx+1);
 	for (int i = 0; i < maxx + 1; i++)
 	{
 		b[i] = 0;
@@ -65,9 +65,8 @@ void countingsort(vector<int> a, int leftbound, int rightbound)
 	{
 		output[--b[a[i]]] = a[i];
 	}
-	delete[] b;
+	
 	for (int i = leftbound; i <= rightbound; i++) a[i] = output[i];
-	delete[] output;
 }
 
 
